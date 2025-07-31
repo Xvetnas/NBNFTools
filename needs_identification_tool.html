@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Needs Explorer – Identify Your Core Needs</title>
+  <style>
+    :root {
+      --primary: #4a90e2;
+      --secondary: #f5f5f5;
+      --accent: #51b14f;
+      --danger: #d9534f;
+      --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    body {
+      margin: 0;
+      font-family: var(--font-family);
+      background-color: var(--secondary);
+      color: #333;
+      line-height: 1.5;
+    }
+    header {
+      background-color: var(--primary);
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+    main {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 1rem;
+    }
+    h1, h2, h3 {
+      margin-top: 0;
+      color: var(--primary);
+    }
+    .info {
+      background-color: white;
+      border-radius: 8px;
+      padding: 1rem 1.5rem;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      margin-bottom: 1rem;
+    }
+    details {
+      margin-bottom: 0.5rem;
+    }
+    summary {
+      font-weight: bold;
+      cursor: pointer;
+      outline: none;
+    }
+    ul {
+      margin-top: 0.5rem;
+      padding-left: 1.2rem;
+    }
+    li {
+      margin-bottom: 0.5rem;
+    }
+    label {
+      display: block;
+      margin: 0.5rem 0 0.2rem;
+    }
+    input[type="text"], textarea {
+      width: 100%;
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+    textarea {
+      min-height: 70px;
+      resize: vertical;
+    }
+    .checkbox-group {
+      display: flex;
+      flex-wrap: wrap;
+    }
+    .checkbox-group label {
+      flex: 1 1 45%;
+      margin: 0.25rem 0;
+    }
+    /* Ensure checkboxes are spaced away from their labels for visibility */
+    .checkbox-group input[type="checkbox"] {
+      margin-right: 0.4rem;
+    }
+    button {
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      padding: 0.6rem 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 1rem;
+      margin-top: 1rem;
+    }
+    button:disabled {
+      background-color: #a0c4e4;
+      cursor: not-allowed;
+    }
+    .result {
+      margin-top: 1rem;
+      padding: 1rem;
+      background-color: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      white-space: pre-wrap;
+    }
+    footer {
+      margin-top: 2rem;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Needs Explorer</h1>
+    <p>Learn about core human needs and discover which ones are driving your behaviour.</p>
+  </header>
+  <main>
+    <!-- Introduction -->
+    <section class="info">
+      <h2>Eyes to See</h2>
+      <p>All human beings experience need. When something feels off, it often points to a need that’s been blocked, neglected, or misunderstood. When we feel energy or hope, a need is often beginning to be met. You are the only person placed on this earth to meet your needs.</p>
+      <p>Use this tool to explore the needs beneath your actions. Start by learning about different categories of needs below, then reflect on a behaviour or feeling and identify which needs might be speaking to you.</p>
+    </section>
+    <!-- Needs Library -->
+    <section class="info">
+      <h2>Needs Library</h2>
+      <p>Click a category to explore the needs and their descriptions. Notice which resonate with you.</p>
+      <details>
+        <summary>Foundational Needs</summary>
+        <ul>
+          <li><strong>Safety</strong> – Physical and emotional security; freedom from danger or fear</li>
+          <li><strong>Rest</strong> – Space to slow down, sleep, recharge, recover</li>
+          <li><strong>Health</strong> – Physical and mental wellness; access to nourishment and care</li>
+          <li><strong>Structure</strong> – Predictable rhythms, routines, or systems</li>
+          <li><strong>Freedom from Overwhelm</strong> – Simplicity, spaciousness, quiet</li>
+        </ul>
+      </details>
+      <details>
+        <summary>Cognitive &amp; Identity Needs</summary>
+        <ul>
+          <li><strong>Understanding</strong> – To make sense of life, emotions, or events</li>
+          <li><strong>Clarity</strong> – Clear direction, goals, or decisions</li>
+          <li><strong>Growth</strong> – Opportunities to develop, stretch, or learn</li>
+          <li><strong>Purpose</strong> – A sense that what you do matters</li>
+          <li><strong>Agency</strong> – The ability to choose and act with integrity</li>
+          <li><strong>Integrity</strong> – Living in alignment with your values and beliefs</li>
+          <li><strong>Voice</strong> – Being heard, being known, speaking truth</li>
+        </ul>
+      </details>
+      <details>
+        <summary>Relational &amp; Emotional Needs</summary>
+        <ul>
+          <li><strong>Belonging</strong> – Feeling part of something; welcomed and included</li>
+          <li><strong>Affection / Love</strong> – Feeling cared for or close to others</li>
+          <li><strong>Support</strong> – Knowing someone has your back</li>
+          <li><strong>Understanding (from others)</strong> – Being seen, not judged</li>
+          <li><strong>Validation</strong> – Feeling your emotions or experience are real</li>
+          <li><strong>Boundaries</strong> – Having your limits respected and honored</li>
+          <li><strong>Trust</strong> – Being able to rely on someone or something</li>
+        </ul>
+      </details>
+      <details>
+        <summary>Spiritual &amp; Narrative Needs</summary>
+        <ul>
+          <li><strong>Hope</strong> – Belief in something better ahead</li>
+          <li><strong>Faith</strong> – Trusting in purpose, process, or a higher power</li>
+          <li><strong>Forgiveness</strong> – Releasing shame or blame</li>
+          <li><strong>Reconciliation</strong> – Healing in relationships or within the self</li>
+          <li><strong>Meaning</strong> – Seeing your life as part of a larger story</li>
+          <li><strong>Transcendence</strong> – Touching beauty, awe, or the sacred</li>
+          <li><strong>Creative Expression</strong> – Turning inner life into outer form</li>
+        </ul>
+      </details>
+    </section>
+    <!-- Reflection Tool -->
+    <section class="info">
+      <h2>Identify Your Needs</h2>
+      <p>Think about a recent behaviour, habit or emotional reaction. Describe it below and then select any needs that might be underlying it. Reflect on how meeting those needs in healthier ways could change your experience.</p>
+      <label for="behaviour">Describe the behaviour, habit, or feeling you want to explore:</label>
+      <textarea id="behaviour" placeholder="Example: I scroll on my phone late at night and can't sleep."></textarea>
+      <label>Select any needs you think might be connected to this behaviour:</label>
+      <div class="checkbox-group" id="needsChecklist"></div>
+      <label for="otherNeedInput">Other need (optional):</label>
+      <input type="text" id="otherNeedInput" placeholder="Add a need not listed" />
+      <label for="emotionSelect">How are you feeling?</label>
+      <select id="emotionSelect">
+        <option value="">-- Select an emotion --</option>
+        <option value="anger">Anger / Irritability</option>
+        <option value="anxiety">Anxiety / Stress</option>
+        <option value="sadness">Sadness / Hurt</option>
+        <option value="loneliness">Loneliness / Rejection</option>
+        <option value="guilt">Guilt / Shame</option>
+        <option value="boredom">Boredom / Apathy</option>
+        <option value="joy">Joy / Excitement</option>
+      </select>
+      <button id="analyzeBtn" disabled>Generate Insight</button>
+      <div class="result" id="insight" style="display:none;"></div>
+    </section>
+    <footer>
+      <p>Needs Explorer is designed as an educational aid and does not replace professional counseling or medical advice.</p>
+    </footer>
+  </main>
+  <script>
+    // List of needs used for the checkbox group.  Keys correspond to the label text.
+    const needs = [
+      'Safety','Rest','Health','Structure','Freedom from Overwhelm',
+      'Understanding','Clarity','Growth','Purpose','Agency','Integrity','Voice',
+      'Belonging','Affection / Love','Support','Understanding (from others)','Validation','Boundaries','Trust',
+      'Hope','Faith','Forgiveness','Reconciliation','Meaning','Transcendence','Creative Expression'
+    ];
+
+    // Populate the checklist
+    const needsContainer = document.getElementById('needsChecklist');
+    needs.forEach(need => {
+      const id = `need_${need.replace(/[^a-zA-Z0-9]/g, '')}`;
+      const label = document.createElement('label');
+      label.innerHTML = `<input type="checkbox" id="${id}" value="${need}"> ${need}`;
+      needsContainer.appendChild(label);
+    });
+
+    const behaviourInput = document.getElementById('behaviour');
+    const analyzeBtn = document.getElementById('analyzeBtn');
+    const insightDiv = document.getElementById('insight');
+
+    // Enable the Analyze button when there is either text or a need selected
+    function updateButtonState() {
+      const behaviourText = behaviourInput.value.trim();
+      const anyNeedChecked = Array.from(needsContainer.querySelectorAll('input[type="checkbox"]')).some(cb => cb.checked);
+      const otherNeedText = document.getElementById('otherNeedInput').value.trim();
+      const emotionVal = document.getElementById('emotionSelect').value;
+      // Enable the button if there is behaviour text and at least one need selected, other need provided, or an emotion chosen
+      analyzeBtn.disabled = !(behaviourText && (anyNeedChecked || otherNeedText || emotionVal));
+    }
+    behaviourInput.addEventListener('input', updateButtonState);
+    document.getElementById('otherNeedInput').addEventListener('input', updateButtonState);
+    needsContainer.addEventListener('change', updateButtonState);
+    // update when emotion selection changes
+    document.getElementById('emotionSelect').addEventListener('change', updateButtonState);
+
+    analyzeBtn.addEventListener('click', () => {
+      const behaviour = behaviourInput.value.trim();
+      // Gather selected needs from checkboxes
+      const selectedNeeds = [];
+      needs.forEach(need => {
+        const id = `need_${need.replace(/[^a-zA-Z0-9]/g, '')}`;
+        const cb = document.getElementById(id);
+        if (cb.checked) selectedNeeds.push(need);
+      });
+      const otherNeed = document.getElementById('otherNeedInput').value.trim();
+      if (otherNeed) selectedNeeds.push(otherNeed);
+      // Determine emotion
+      const emotion = document.getElementById('emotionSelect').value;
+      // Suggest needs based on emotion and keywords
+      const suggestionsSet = new Set();
+      // Mapping of emotions to possible underlying needs
+      const emotionNeedsMap = {
+        anger: ['Boundaries','Voice','Rest','Freedom from Overwhelm','Support','Integrity'],
+        anxiety: ['Safety','Rest','Clarity','Support','Structure','Freedom from Overwhelm'],
+        sadness: ['Belonging','Affection / Love','Support','Validation','Meaning','Hope','Faith'],
+        loneliness: ['Belonging','Affection / Love','Support','Validation','Trust','Connection'],
+        guilt: ['Forgiveness','Reconciliation','Integrity','Support','Validation'],
+        boredom: ['Growth','Purpose','Play','Creative Expression','Meaning','Connection'],
+        joy: ['Play','Creative Expression','Growth','Belonging','Affection / Love','Recognition']
+      };
+      if (emotion && emotionNeedsMap[emotion]) {
+        emotionNeedsMap[emotion].forEach(n => suggestionsSet.add(n));
+      }
+      // Mapping of keywords found in behaviour to needs
+      const keywordNeedsMap = {
+        yell: ['Boundaries','Voice','Rest','Freedom from Overwhelm','Support'],
+        yelling: ['Boundaries','Voice','Rest','Freedom from Overwhelm','Support'],
+        angry: ['Boundaries','Voice','Rest','Freedom from Overwhelm','Support'],
+        anger: ['Boundaries','Voice','Rest','Freedom from Overwhelm','Support'],
+        snap: ['Boundaries','Voice','Rest','Freedom from Overwhelm','Support'],
+        stress: ['Safety','Rest','Clarity','Support','Structure','Freedom from Overwhelm'],
+        stressed: ['Safety','Rest','Clarity','Support','Structure','Freedom from Overwhelm'],
+        project: ['Clarity','Purpose','Structure','Support'],
+        work: ['Clarity','Purpose','Rest','Structure','Support'],
+        reject: ['Belonging','Affection / Love','Validation','Trust'],
+        rejected: ['Belonging','Affection / Love','Validation','Trust'],
+        'video game': ['Rest','Freedom from Overwhelm','Play','Support','Connection'],
+        games: ['Rest','Freedom from Overwhelm','Play','Support','Connection'],
+        scroll: ['Rest','Freedom from Overwhelm','Clarity','Support'],
+        phone: ['Rest','Freedom from Overwhelm','Clarity'],
+        avoid: ['Rest','Freedom from Overwhelm','Support','Clarity'],
+        bored: ['Growth','Purpose','Play','Creative Expression','Connection'],
+        'cant sleep': ['Rest','Freedom from Overwhelm','Structure'],
+        overwhelmed: ['Freedom from Overwhelm','Rest','Support','Structure']
+      };
+      const behaviourLower = behaviour.toLowerCase();
+      Object.keys(keywordNeedsMap).forEach(key => {
+        if (behaviourLower.includes(key)) {
+          keywordNeedsMap[key].forEach(n => suggestionsSet.add(n));
+        }
+      });
+      // Remove suggestions that are not in our master needs list
+      const validSuggestions = Array.from(suggestionsSet).filter(n => needs.includes(n));
+      // Build insight text
+      let result = '';
+      result += `You wrote:\n"${behaviour}"\n\n`;
+      if (selectedNeeds.length > 0) {
+        if (selectedNeeds.length === 1) {
+          result += `You selected the need: ${selectedNeeds[0]}.\n\n`;
+        } else {
+          const lastSel = selectedNeeds[selectedNeeds.length - 1];
+          const othersSel = selectedNeeds.slice(0, -1).join(', ');
+          result += `You selected the needs: ${othersSel} and ${lastSel}.\n\n`;
+        }
+      }
+      if (validSuggestions.length > 0) {
+        if (validSuggestions.length === 1) {
+          result += `Based on what you wrote${emotion ? ' and the emotion you selected' : ''}, you might explore the need for ${validSuggestions[0]}.`;
+        } else {
+          const lastSugg = validSuggestions[validSuggestions.length - 1];
+          const othersSugg = validSuggestions.slice(0, -1).join(', ');
+          result += `Based on what you wrote${emotion ? ' and the emotion you selected' : ''}, you might explore the needs for ${othersSugg} and ${lastSugg}.`;
+        }
+      }
+      if (selectedNeeds.length === 0 && validSuggestions.length === 0) {
+        result += 'It seems you are unsure which needs are at play. Try exploring different emotions or read through the needs library above for inspiration.';
+      }
+      result += '\n\nConsider how you might meet these needs in a supportive, life‑giving way. What small action could you take to honour them?';
+      insightDiv.style.display = 'block';
+      insightDiv.innerText = result;
+    });
+  </script>
+</body>
+</html>

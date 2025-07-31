@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Spiral of Becoming – Story Maker</title>
+  <style>
+    :root {
+      --primary: #4a90e2;
+      --secondary: #f5f5f5;
+      --accent: #51b14f;
+      --danger: #d9534f;
+      --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    body {
+      margin: 0;
+      font-family: var(--font-family);
+      background-color: var(--secondary);
+      color: #333;
+    }
+    header {
+      background-color: var(--primary);
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+    main {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 1rem;
+    }
+    .step {
+      display: none;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      padding: 1rem 1.5rem;
+      margin-bottom: 1rem;
+    }
+    .step.active {
+      display: block;
+    }
+    h2 {
+      margin-top: 0;
+      color: var(--primary);
+    }
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+    input[type="text"], input[type="number"], textarea, select {
+      width: 100%;
+      padding: 0.5rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+    textarea {
+      min-height: 80px;
+      resize: vertical;
+    }
+    .actions {
+      text-align: right;
+    }
+    .actions button {
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      padding: 0.6rem 1rem;
+      border-radius: 4px;
+      margin-left: 0.5rem;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+    .actions button[disabled] {
+      background-color: #a0c4e4;
+      cursor: not-allowed;
+    }
+    .checkbox-group {
+      display: flex;
+      flex-wrap: wrap;
+    }
+    .checkbox-group label {
+      flex: 1 1 45%;
+      margin-bottom: 0.5rem;
+    }
+    .summary {
+      white-space: pre-wrap;
+      background-color: var(--secondary);
+      padding: 1rem;
+      border-radius: 8px;
+      margin-top: 1rem;
+      border: 1px solid #ddd;
+    }
+    .link {
+      color: var(--primary);
+      text-decoration: underline;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>My Spiral of Becoming – Story Maker</h1>
+    <p>Explore your journey through the Spiral of Becoming, identify your core needs, and craft a narrative that honors growth and agency.</p>
+  </header>
+  <main>
+    <!-- Step 1: Stage selection, stasis, surrender -->
+    <div class="step active" id="step1">
+      <h2>1. Locate Yourself on the Spiral</h2>
+      <p>Select the statement that best describes where you are right now:</p>
+      <label><input type="radio" name="stage" value="Stability" /> I feel balanced or comfortable, whether healthy or stagnant.</label>
+      <label><input type="radio" name="stage" value="Disruption" /> Something has recently disrupted my routine or sense of self.</label>
+      <label><input type="radio" name="stage" value="Action/Reaction" /> I'm reacting automatically to a change or stressor.</label>
+      <label><input type="radio" name="stage" value="Awareness" /> I'm reflecting on patterns, needs or truths coming up for me.</label>
+      <label><input type="radio" name="stage" value="Integration" /> I'm integrating new insights and practices into my life.</label>
+      <hr />
+      <p>Do you feel stuck cycling through the same patterns without resolution?</p>
+      <label><input type="radio" name="stasis" value="yes" /> Yes, I feel stuck or stagnant.</label>
+      <label><input type="radio" name="stasis" value="no" /> No, I feel like I'm moving forward.</label>
+      <hr />
+      <p>Do you sense that personal effort alone won't move you forward and that you may need to surrender or seek support?</p>
+      <label><input type="radio" name="surrender" value="yes" /> Yes, I need to surrender or seek help.</label>
+      <label><input type="radio" name="surrender" value="no" /> No, not at this time.</label>
+      <div class="actions">
+        <button id="step1Next" disabled>Next</button>
+      </div>
+    </div>
+
+    <!-- Step 2: Stability & Disruption -->
+    <div class="step" id="step2">
+      <h2>2. Stability & Disruption</h2>
+      <p>If you are reflecting on a disruption or movement away from stability, use the prompts below. If not applicable, you may leave them blank.</p>
+      <label for="stabilityMoment">What was your last moment of felt stability?</label>
+      <textarea id="stabilityMoment" placeholder="Describe a time when things felt balanced."></textarea>
+      <label for="disruptionEvent">What disrupted it? (If applicable)</label>
+      <textarea id="disruptionEvent" placeholder="Describe the change, challenge, or shift."></textarea>
+      <div class="actions">
+        <button id="step2Back">Back</button>
+        <button id="step2Next">Next</button>
+      </div>
+    </div>
+
+    <!-- Step 3: Action/Reaction -->
+    <div class="step" id="step3">
+      <h2>3. Action / Reaction</h2>
+      <p>Reflect on how you responded to the disruption or challenge.</p>
+      <label for="reaction">How did you react? (behaviors, emotions, defenses)</label>
+      <textarea id="reaction" placeholder="Describe your initial response."></textarea>
+      <label for="reactionNeed">What need do you think your reaction was protecting? (e.g., safety, connection)</label>
+      <textarea id="reactionNeed" placeholder="Identify the need behind your reaction."></textarea>
+      <div class="actions">
+        <button id="step3Back">Back</button>
+        <button id="step3Next">Next</button>
+      </div>
+    </div>
+
+    <!-- Step 4: Awareness -->
+    <div class="step" id="step4">
+      <h2>4. Awareness</h2>
+      <p>Take a moment to notice any patterns, insights, or truths emerging for you.</p>
+      <label for="awareness">What are you becoming aware of now?</label>
+      <textarea id="awareness" placeholder="Reflect on the themes or needs showing up."></textarea>
+      <div id="stasisPrompts" style="display:none;">
+        <h3>Stasis / Stagnation Reflection</h3>
+        <label for="stasisPatterns">What patterns seem to repeat without resolution?</label>
+        <textarea id="stasisPatterns" placeholder="Describe any recurring loops."></textarea>
+        <label for="stasisTruth">What truth have you been avoiding or resisting?</label>
+        <textarea id="stasisTruth" placeholder="Explore any hidden fears or unacknowledged grief."></textarea>
+      </div>
+      <div class="actions">
+        <button id="step4Back">Back</button>
+        <button id="step4Next">Next</button>
+      </div>
+    </div>
+
+    <!-- Step 5: Integration -->
+    <div class="step" id="step5">
+      <h2>5. Integration</h2>
+      <p>Consider how you might apply a new insight, pattern, or practice to move toward a deeper form of stability.</p>
+      <label for="integration">What new story or action feels aligned with your needs and values?</label>
+      <textarea id="integration" placeholder="Describe the intentional step you want to take."></textarea>
+      <div id="surrenderPrompts" style="display:none;">
+        <h3>Surrender & Support Reflection</h3>
+        <label for="surrenderOutOfControl">Name what is out of your control.</label>
+        <textarea id="surrenderOutOfControl" placeholder="What are you unable to change on your own?"></textarea>
+        <label for="surrenderSupport">Acknowledge the need for support (from others, God, or deeper truth).</label>
+        <textarea id="surrenderSupport" placeholder="Describe your need for help, grace or insight."></textarea>
+        <label for="surrenderOpenSpace">Open space for receiving help.</label>
+        <textarea id="surrenderOpenSpace" placeholder="How will you make space for support in your life?"></textarea>
+      </div>
+      <div class="actions">
+        <button id="step5Back">Back</button>
+        <button id="step5Next">Next</button>
+      </div>
+    </div>
+
+    <!-- Step 6: Needs Identification -->
+    <div class="step" id="step6">
+      <h2>6. Identify Your Needs</h2>
+      <p>Select any needs that feel relevant to your current story. These needs can guide your next steps.</p>
+      <div class="checkbox-group" id="needsGroup">
+        <!-- Needs checkboxes generated by JS -->
+      </div>
+      <label for="otherNeed">Other need not listed (optional):</label>
+      <input type="text" id="otherNeed" placeholder="Add another need..." />
+      <div class="actions">
+        <button id="step6Back">Back</button>
+        <button id="step6Next">Next</button>
+      </div>
+    </div>
+
+    <!-- Step 7: Micro Action -->
+    <div class="step" id="step7">
+      <h2>7. Intentional Micro Action</h2>
+      <p>What small, specific action (micro‑goal) could you take to move you toward integration and honor your needs?</p>
+      <input type="text" id="microAction" placeholder="Describe your micro action (optional)..." />
+      <p>You can also track micro‑goals using the <a href="nbnf_goal_tool.html" target="_blank" class="link">NBNF Micro‑Goals Tool</a>.</p>
+      <div class="actions">
+        <button id="step7Back">Back</button>
+        <button id="step7Next">Next</button>
+      </div>
+    </div>
+
+    <!-- Step 8: Summary -->
+    <div class="step" id="step8">
+      <h2>8. Your Spiral Story Summary</h2>
+      <p>Review your responses. You can copy this summary or save it for reflection. Your data stays in your browser.</p>
+      <div class="summary" id="storySummary"></div>
+      <div class="actions">
+        <button id="step8Back">Back</button>
+        <button id="copySummary">Copy to Clipboard</button>
+      </div>
+    </div>
+  </main>
+  <script>
+    // State object to hold form data
+    const formData = {
+      stage: '',
+      stasis: '',
+      surrender: '',
+      stabilityMoment: '',
+      disruptionEvent: '',
+      reaction: '',
+      reactionNeed: '',
+      awareness: '',
+      stasisPatterns: '',
+      stasisTruth: '',
+      integration: '',
+      surrenderOutOfControl: '',
+      surrenderSupport: '',
+      surrenderOpenSpace: '',
+      needs: [],
+      otherNeed: '',
+      microAction: ''
+    };
+
+    // Needs list
+    const needsList = [
+      'Belonging',
+      'Safety',
+      'Purpose',
+      'Autonomy',
+      'Clarity',
+      'Rest',
+      'Play',
+      'Creativity',
+      'Connection',
+      'Recognition',
+      'Growth',
+      'Peace',
+      'Joy'
+    ];
+
+    // Populate needs checkboxes
+    const needsGroup = document.getElementById('needsGroup');
+    needsList.forEach(need => {
+      const id = `need_${need.replace(/\s+/g, '').toLowerCase()}`;
+      const wrapper = document.createElement('label');
+      wrapper.innerHTML = `<input type="checkbox" value="${need}" id="${id}" /> ${need}`;
+      needsGroup.appendChild(wrapper);
+    });
+
+    // Step navigation
+    const steps = Array.from(document.querySelectorAll('.step'));
+    function showStep(idx) {
+      steps.forEach((step, i) => {
+        step.classList.toggle('active', i === idx);
+      });
+      // Scroll to top of page for long content
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    let currentStep = 0;
+    function nextStep() { currentStep++; showStep(currentStep); }
+    function prevStep() { currentStep--; showStep(currentStep); }
+
+    // Step 1 logic: enable Next when stage selected
+    const step1Next = document.getElementById('step1Next');
+    document.getElementById('step1').addEventListener('change', () => {
+      const stageVal = document.querySelector('input[name="stage"]:checked');
+      const stasisVal = document.querySelector('input[name="stasis"]:checked');
+      const surrenderVal = document.querySelector('input[name="surrender"]:checked');
+      step1Next.disabled = !(stageVal && stasisVal && surrenderVal);
+    });
+    step1Next.addEventListener('click', () => {
+      // Save selections
+      formData.stage = document.querySelector('input[name="stage"]:checked').value;
+      formData.stasis = document.querySelector('input[name="stasis"]:checked').value;
+      formData.surrender = document.querySelector('input[name="surrender"]:checked').value;
+      // Show/hide stasis & surrender prompts later
+      nextStep();
+    });
+
+    // Step 2 navigation
+    document.getElementById('step2Back').addEventListener('click', () => { prevStep(); });
+    document.getElementById('step2Next').addEventListener('click', () => {
+      formData.stabilityMoment = document.getElementById('stabilityMoment').value.trim();
+      formData.disruptionEvent = document.getElementById('disruptionEvent').value.trim();
+      nextStep();
+    });
+
+    // Step 3 navigation
+    document.getElementById('step3Back').addEventListener('click', () => { prevStep(); });
+    document.getElementById('step3Next').addEventListener('click', () => {
+      formData.reaction = document.getElementById('reaction').value.trim();
+      formData.reactionNeed = document.getElementById('reactionNeed').value.trim();
+      nextStep();
+    });
+
+    // Step 4: show stasis prompts conditionally
+    document.getElementById('step4Back').addEventListener('click', () => { prevStep(); });
+    document.getElementById('step4Next').addEventListener('click', () => {
+      formData.awareness = document.getElementById('awareness').value.trim();
+      if (formData.stasis === 'yes') {
+        formData.stasisPatterns = document.getElementById('stasisPatterns').value.trim();
+        formData.stasisTruth = document.getElementById('stasisTruth').value.trim();
+      }
+      nextStep();
+    });
+
+    // Step 5: show surrender prompts conditionally
+    document.getElementById('step5Back').addEventListener('click', () => { prevStep(); });
+    document.getElementById('step5Next').addEventListener('click', () => {
+      formData.integration = document.getElementById('integration').value.trim();
+      if (formData.surrender === 'yes') {
+        formData.surrenderOutOfControl = document.getElementById('surrenderOutOfControl').value.trim();
+        formData.surrenderSupport = document.getElementById('surrenderSupport').value.trim();
+        formData.surrenderOpenSpace = document.getElementById('surrenderOpenSpace').value.trim();
+      }
+      nextStep();
+    });
+
+    // Step 6: needs identification
+    document.getElementById('step6Back').addEventListener('click', () => { prevStep(); });
+    document.getElementById('step6Next').addEventListener('click', () => {
+      // Gather selected needs
+      const selected = [];
+      needsList.forEach(need => {
+        const id = `need_${need.replace(/\s+/g, '').toLowerCase()}`;
+        const checkbox = document.getElementById(id);
+        if (checkbox.checked) selected.push(need);
+      });
+      const other = document.getElementById('otherNeed').value.trim();
+      formData.needs = selected;
+      formData.otherNeed = other;
+      nextStep();
+    });
+
+    // Step 7: micro action
+    document.getElementById('step7Back').addEventListener('click', () => { prevStep(); });
+    document.getElementById('step7Next').addEventListener('click', () => {
+      formData.microAction = document.getElementById('microAction').value.trim();
+      generateSummary();
+      nextStep();
+    });
+
+    // Step 8: summary
+    document.getElementById('step8Back').addEventListener('click', () => { prevStep(); });
+    document.getElementById('copySummary').addEventListener('click', () => {
+      const text = document.getElementById('storySummary').innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        alert('Summary copied to clipboard.');
+      });
+    });
+
+    // Show/hide prompts based on stasis and surrender selections when reaching steps
+    function updateConditionalPrompts() {
+      document.getElementById('stasisPrompts').style.display = formData.stasis === 'yes' ? 'block' : 'none';
+      document.getElementById('surrenderPrompts').style.display = formData.surrender === 'yes' ? 'block' : 'none';
+    }
+    // Intercept step changes to update prompts
+    const observer = new MutationObserver(() => { updateConditionalPrompts(); });
+    observer.observe(document.getElementById('step4'), { attributes: true, attributeFilter: ['class'] });
+    observer.observe(document.getElementById('step5'), { attributes: true, attributeFilter: ['class'] });
+
+    // Generate summary text
+    function generateSummary() {
+      let summary = '';
+      summary += `Stage: ${formData.stage}\n`;
+      if (formData.stasis === 'yes') summary += 'You indicated feeling stuck or stagnant.\n';
+      if (formData.surrender === 'yes') summary += 'You indicated a need to surrender or seek support.\n';
+      if (formData.stabilityMoment) summary += `\nLast moment of stability:\n${formData.stabilityMoment}\n`;
+      if (formData.disruptionEvent) summary += `\nDisruption:\n${formData.disruptionEvent}\n`;
+      if (formData.reaction) summary += `\nReaction:\n${formData.reaction}\n`;
+      if (formData.reactionNeed) summary += `Need protected by reaction:\n${formData.reactionNeed}\n`;
+      if (formData.awareness) summary += `\nEmerging awareness:\n${formData.awareness}\n`;
+      if (formData.stasis === 'yes') {
+        if (formData.stasisPatterns) summary += `\nRepeating patterns:\n${formData.stasisPatterns}\n`;
+        if (formData.stasisTruth) summary += `Truth avoided or resisted:\n${formData.stasisTruth}\n`;
+      }
+      if (formData.integration) summary += `\nIntegration step:\n${formData.integration}\n`;
+      if (formData.surrender === 'yes') {
+        if (formData.surrenderOutOfControl) summary += `\nOut of your control:\n${formData.surrenderOutOfControl}\n`;
+        if (formData.surrenderSupport) summary += `Need for support:\n${formData.surrenderSupport}\n`;
+        if (formData.surrenderOpenSpace) summary += `Making space for help:\n${formData.surrenderOpenSpace}\n`;
+      }
+      if (formData.needs.length > 0 || formData.otherNeed) {
+        summary += `\nIdentified needs:\n`;
+        if (formData.needs.length > 0) summary += formData.needs.join(', ');
+        if (formData.otherNeed) summary += (formData.needs.length > 0 ? ', ' : '') + formData.otherNeed;
+        summary += '\n';
+      }
+      if (formData.microAction) {
+        summary += `\nMicro action:\n${formData.microAction}\n`;
+      }
+      document.getElementById('storySummary').innerText = summary;
+    }
+
+  </script>
+</body>
+</html>

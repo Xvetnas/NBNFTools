@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NBNF Micro‑Goal & Big Picture Tool</title>
+  <style>
+    :root {
+      --primary: #4a90e2;
+      --secondary: #f5f5f5;
+      --accent: #51b14f;
+      --danger: #d9534f;
+      --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    body {
+      margin: 0;
+      font-family: var(--font-family);
+      background-color: var(--secondary);
+      color: #333;
+    }
+    header {
+      background-color: var(--primary);
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+    main {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 1rem;
+      box-sizing: border-box;
+    }
+    .column {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      padding: 1rem;
+      margin: 0.5rem;
+      flex: 1 1 300px;
+      max-width: 500px;
+    }
+    h2 {
+      margin-top: 0;
+      color: var(--primary);
+    }
+    .instructions {
+      font-size: 0.9rem;
+      background-color: var(--secondary);
+      padding: 0.5rem;
+      border-left: 4px solid var(--primary);
+      margin-bottom: 1rem;
+      border-radius: 4px;
+    }
+    .add-form {
+      display: flex;
+      margin-bottom: 1rem;
+    }
+    .add-form input[type="text"] {
+      flex-grow: 1;
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 4px 0 0 4px;
+      font-size: 1rem;
+    }
+    .add-form button {
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 0 4px 4px 0;
+      background-color: var(--primary);
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    .add-form button:disabled {
+      background-color: #a0c4e4;
+      cursor: not-allowed;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    li {
+      display: flex;
+      align-items: center;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid #eee;
+    }
+    li:last-child {
+      border-bottom: none;
+    }
+    li label {
+      flex-grow: 1;
+      margin-left: 0.5rem;
+    }
+    li .remove {
+      margin-left: 0.5rem;
+      color: var(--danger);
+      cursor: pointer;
+    }
+    #celebration {
+      display: none;
+      margin-top: 1rem;
+      padding: 1rem;
+      background-color: var(--accent);
+      color: white;
+      border-radius: 4px;
+      text-align: center;
+    }
+    .reset-btn {
+      margin-top: 1rem;
+      background-color: var(--danger);
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>NBNF Micro‑Goal & Big Picture Tool</h1>
+    <p>Create momentum by Naming your dreams, Breaking them into micro‑goals, taking the Next step, and Finishing with celebration.</p>
+  </header>
+  <main>
+    <div class="column" id="big-picture-column">
+      <h2>Big Picture (Name It)</h2>
+      <div class="instructions">
+        List your long‑term goals, dreams and objectives. These items set the direction. Group them into categories if you like. There is no limit to the number of big picture items—this is where you <strong>Name</strong> what you want. <br><strong> NBNF Reminder:</strong> before you add goals, take a moment to notice any unmet needs or tensions driving your desire for change. Use the optional field below to record them.
+      </div>
+      <textarea id="needsTension" placeholder="Optional: What need or tension is inspiring these goals? (e.g., connection, purpose, autonomy)" style="width:100%; padding:0.5rem; box-sizing:border-box; margin-bottom:0.5rem; border:1px solid #ccc; border-radius:4px; font-size:0.9rem;"></textarea>
+      <div class="add-form">
+        <input type="text" id="bigGoalInput" placeholder="Add a big goal..." />
+        <button id="addBigGoalBtn">Add</button>
+      </div>
+      <ul id="bigGoalsList"></ul>
+    </div>
+    <div class="column" id="micro-goal-column">
+      <h2>Micro‑Goals (Break It Down)</h2>
+      <div class="instructions">
+        Enter 1–3 specific next steps that move you toward your big picture items. According to NBNF, these are small actions that you can achieve today or in the near future. When you Finish a micro‑goal, celebrate and then add another or leave it blank.
+      </div>
+      <div class="add-form" style="flex-direction: column; gap: 0.5rem;">
+        <div style="display:flex;">
+          <input type="text" id="microGoalInput" placeholder="Add a micro‑goal..." />
+          <button id="addMicroGoalBtn">Add</button>
+        </div>
+        <div style="display:flex; gap:0.5rem;">
+          <select id="needSelect" style="flex:1; padding:0.4rem; border:1px solid #ccc; border-radius:4px;">
+            <option value="" disabled selected>Select need served (optional)</option>
+            <option value="Connection">Connection</option>
+            <option value="Autonomy">Autonomy</option>
+            <option value="Purpose">Purpose</option>
+            <option value="Security">Security</option>
+            <option value="Growth">Growth</option>
+            <option value="Exploration">Exploration</option>
+            <option value="Recognition">Recognition</option>
+          </select>
+          <select id="phaseSelect" style="flex:1; padding:0.4rem; border:1px solid #ccc; border-radius:4px;">
+            <option value="" disabled selected>Current Spiral Phase</option>
+            <option value="Stability">Stability</option>
+            <option value="Disruption">Disruption</option>
+            <option value="Action/Reaction">Action/Reaction</option>
+            <option value="Awareness">Awareness</option>
+            <option value="Integration">Integration</option>
+          </select>
+        </div>
+      </div>
+      <ul id="microGoalsList"></ul>
+      <div id="celebration">Great job! Celebrate your achievement before moving on.</div>
+      <button class="reset-btn" id="resetMicroBtn">Reset Micro‑Goals for Tomorrow</button>
+      <div id="historySection" style="margin-top:1.5rem;">
+        <h3 style="margin-top:0; color:var(--primary);">Completed Micro‑Goal Reflections</h3>
+        <div class="instructions" style="font-size:0.85rem;">
+          This section stores your completed micro‑goals along with the need they served and any reflections.\nUse it to notice shifts in awareness, emotions, and alignment over time.
+        </div>
+        <ul id="historyList"></ul>
+      </div>
+    </div>
+  </main>
+  <script>
+    // Storage keys
+    const BIG_GOALS_KEY = 'nbnfBigGoals';
+    const MICRO_GOALS_KEY = 'nbnfMicroGoals';
+    const MICRO_HISTORY_KEY = 'nbnfMicroGoalHistory';
+
+    // Load data from localStorage
+    function loadGoals(key) {
+      const data = localStorage.getItem(key);
+      return data ? JSON.parse(data) : [];
+    }
+    function saveGoals(key, list) {
+      localStorage.setItem(key, JSON.stringify(list));
+    }
+
+    // Render big goals list
+    function renderBigGoals() {
+      const list = loadGoals(BIG_GOALS_KEY);
+      const ul = document.getElementById('bigGoalsList');
+      ul.innerHTML = '';
+      list.forEach((item, index) => {
+        const li = document.createElement('li');
+        li.innerHTML = `<span>${item}</span><span class="remove" data-index="${index}" title="Remove">&times;</span>`;
+        ul.appendChild(li);
+      });
+    }
+
+    // Render micro‑goals list
+    function renderMicroGoals() {
+      const list = loadGoals(MICRO_GOALS_KEY);
+      const ul = document.getElementById('microGoalsList');
+      ul.innerHTML = '';
+      list.forEach((item, index) => {
+        // Skip undefined or null items that may exist from previous versions
+        if (item === undefined || item === null) return;
+        // Determine text and need fields depending on data type
+        const text = typeof item === 'string' ? item : item.text;
+        if (!text) return;
+        const need = typeof item === 'object' && item.need ? item.need : '';
+        const li = document.createElement('li');
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.dataset.index = index;
+        checkbox.addEventListener('change', completeMicroGoal);
+        const label = document.createElement('label');
+        label.innerHTML = text + (need ? ` <span style="font-size:0.8rem; color:#888;">[${need}]</span>` : '');
+        li.appendChild(checkbox);
+        li.appendChild(label);
+        ul.appendChild(li);
+      });
+      // Disable add button if there are already 3 micro‑goals
+      document.getElementById('addMicroGoalBtn').disabled = list.length >= 3;
+    }
+
+    // Add big goal
+    document.getElementById('addBigGoalBtn').addEventListener('click', function () {
+      const input = document.getElementById('bigGoalInput');
+      const value = input.value.trim();
+      if (value) {
+        const list = loadGoals(BIG_GOALS_KEY);
+        list.push(value);
+        saveGoals(BIG_GOALS_KEY, list);
+        input.value = '';
+        renderBigGoals();
+      }
+    });
+    // Remove big goal
+    document.getElementById('bigGoalsList').addEventListener('click', function (e) {
+      if (e.target.classList.contains('remove')) {
+        const index = parseInt(e.target.dataset.index, 10);
+        const list = loadGoals(BIG_GOALS_KEY);
+        list.splice(index, 1);
+        saveGoals(BIG_GOALS_KEY, list);
+        renderBigGoals();
+      }
+    });
+
+    // Add micro‑goal
+    document.getElementById('addMicroGoalBtn').addEventListener('click', function () {
+      const input = document.getElementById('microGoalInput');
+      const needSelect = document.getElementById('needSelect');
+      const phaseSelect = document.getElementById('phaseSelect');
+      const text = input.value.trim();
+      const list = loadGoals(MICRO_GOALS_KEY);
+      if (text && list.length < 3) {
+        const newItem = {
+          text: text,
+          need: needSelect.value || '',
+          phase: phaseSelect.value || ''
+        };
+        list.push(newItem);
+        saveGoals(MICRO_GOALS_KEY, list);
+        input.value = '';
+        needSelect.selectedIndex = 0;
+        phaseSelect.selectedIndex = 0;
+        renderMicroGoals();
+      }
+    });
+    // Complete micro‑goal handler
+    function completeMicroGoal(e) {
+      const index = parseInt(e.target.dataset.index, 10);
+      const list = loadGoals(MICRO_GOALS_KEY);
+      const item = list.splice(index, 1)[0];
+      saveGoals(MICRO_GOALS_KEY, list);
+      renderMicroGoals();
+      // Ask user for reflection after completing micro‑goal
+      // Determine text and need fields depending on data type
+      const text = typeof item === 'string' ? item : item.text;
+      const need = typeof item === 'object' && item.need ? item.need : '';
+      const phase = typeof item === 'object' && item.phase ? item.phase : '';
+      let reflection = prompt('Reflection: What changed in you as a result of completing "' + text + '"? How did it meet your need?');
+      if (reflection === null) reflection = '';
+      const history = loadGoals(MICRO_HISTORY_KEY);
+      history.unshift({
+        text: text,
+        need: need,
+        phase: phase,
+        reflection: reflection,
+        date: new Date().toISOString(),
+      });
+      saveGoals(MICRO_HISTORY_KEY, history);
+      renderHistory();
+      // Show celebration message briefly
+      const celeb = document.getElementById('celebration');
+      celeb.style.display = 'block';
+      setTimeout(() => {
+        celeb.style.display = 'none';
+      }, 3000);
+    }
+
+    // Render history list
+    function renderHistory() {
+      const history = loadGoals(MICRO_HISTORY_KEY);
+      const ul = document.getElementById('historyList');
+      ul.innerHTML = '';
+      history.forEach(entry => {
+        const li = document.createElement('li');
+        li.style.flexDirection = 'column';
+        const title = document.createElement('span');
+        title.innerHTML = `<strong>${entry.text}</strong>` + (entry.need ? ` <span style="font-size:0.8rem; color:#888;">[${entry.need}]</span>` : '') + (entry.phase ? ` <span style="font-size:0.75rem; color:#bbb;">(${entry.phase})</span>` : '');
+        const date = new Date(entry.date);
+        const dateSpan = document.createElement('span');
+        dateSpan.style.fontSize = '0.75rem';
+        dateSpan.style.color = '#777';
+        dateSpan.textContent = date.toLocaleString();
+        const refl = document.createElement('span');
+        refl.style.fontSize = '0.85rem';
+        refl.style.color = '#555';
+        refl.textContent = entry.reflection || 'No reflection recorded.';
+        li.appendChild(title);
+        li.appendChild(dateSpan);
+        li.appendChild(refl);
+        ul.appendChild(li);
+      });
+    }
+    // Reset micro‑goals button
+    document.getElementById('resetMicroBtn').addEventListener('click', function () {
+      if (confirm('This will clear all micro‑goals. Proceed?')) {
+        saveGoals(MICRO_GOALS_KEY, []);
+        renderMicroGoals();
+      }
+    });
+    // Initial render
+    renderBigGoals();
+    renderMicroGoals();
+    renderHistory();
+  </script>
+</body>
+</html>
