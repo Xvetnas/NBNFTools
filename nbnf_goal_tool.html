@@ -357,6 +357,28 @@
     renderBigGoals();
     renderMicroGoals();
     renderHistory();
+    // === Add/Edit/Delete Listener for Micro-Goals ===
+    document.getElementById('microGoalsList').addEventListener('click', function(e) {
+      if (e.target.classList.contains('remove')) {
+        const index = parseInt(e.target.dataset.index, 10);
+        const list = loadGoals(MICRO_GOALS_KEY);
+        list.splice(index, 1);
+        saveGoals(MICRO_GOALS_KEY, list);
+        renderMicroGoals();
+      }
+
+      if (e.target.classList.contains('edit')) {
+        const index = parseInt(e.target.dataset.index, 10);
+        const list = loadGoals(MICRO_GOALS_KEY);
+        const current = list[index];
+        const newText = prompt('Edit micro-goal:', current.text || current);
+        if (newText) {
+          list[index] = typeof current === 'object' ? { ...current, text: newText } : newText;
+          saveGoals(MICRO_GOALS_KEY, list);
+          renderMicroGoals();
+        }
+      }
+    });
   </script>
 </body>
 </html>
