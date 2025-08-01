@@ -228,6 +228,17 @@
         label.innerHTML = text + (need ? ` <span style="font-size:0.8rem; color:#888;">[${need}]</span>` : '');
         li.appendChild(checkbox);
         li.appendChild(label);
+        const editBtn = document.createElement('span');
+        // Edit and Delete buttons for micro-goals
+        editBtn.textContent = '✎'; // pencil icon
+        editBtn.classList.add('edit');
+        editBtn.dataset.index = index;
+        const deleteBtn = document.createElement('span');
+        deleteBtn.textContent = '×';
+        deleteBtn.classList.add('remove');
+        deleteBtn.dataset.index = index;
+        li.appendChild(editBtn);
+        li.appendChild(deleteBtn);
         ul.appendChild(li);
       });
       // Disable add button if there are already 3 micro‑goals
