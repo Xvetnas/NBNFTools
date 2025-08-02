@@ -156,7 +156,7 @@
           <button id="addMicroGoalBtn">Add</button>
         </div>
         <div style="display:flex; gap:0.5rem;">
-          <select id="needSelect" style="flex:1; padding:0.4rem; border:1px solid #ccc; border-radius:4px;">
+          <select id="needSelect" title="Pick the core need this action will meet" style="flex:1; padding:0.4rem; border:1px solid #ccc; border-radius:4px;">
             <option value="" disabled selected>Select need served (optional)</option>
             <option value="Connection">Connection</option>
             <option value="Autonomy">Autonomy</option>
@@ -166,13 +166,16 @@
             <option value="Exploration">Exploration</option>
             <option value="Recognition">Recognition</option>
           </select>
-          <select id="phaseSelect" style="flex:1; padding:0.4rem; border:1px solid #ccc; border-radius:4px;">
+          <select id="phaseSelect" title="Select the current Spiral of Becoming stage" style="flex:1; padding:0.4rem; border:1px solid #ccc; border-radius:4px;">
             <option value="" disabled selected>Current Spiral Phase</option>
             <option value="Stability">Stability</option>
             <option value="Disruption">Disruption</option>
             <option value="Action/Reaction">Action/Reaction</option>
             <option value="Awareness">Awareness</option>
             <option value="Integration">Integration</option>
+          </select>
+          <select id="bigGoalSelect" title="Which big picture goal does this micro‑goal support? (optional)" style="flex:1; padding:0.4rem; border:1px solid #ccc; border-radius:4px;">
+            <option value="" disabled selected>Select linked big goal (optional)</option>
           </select>
         </div>
       </div>
@@ -213,6 +216,26 @@
         li.innerHTML = `<span>${item}</span><span class="remove" data-index="${index}" title="Remove">&times;</span>`;
         ul.appendChild(li);
       });
+      // Repopulate the big goal select options whenever the list changes
+      populateBigGoalOptions(list);
+    }
+
+    // Populate the big goal select with current big goals
+    function populateBigGoalOptions(list) {
+      const select = document.getElementById('bigGoalSelect');
+      if (!select) return;
+      // If a list is provided, use it; otherwise load from storage
+      const goals = list || loadGoals(BIG_GOALS_KEY);
+      // Preserve the previously selected value if possible
+      const prevValue = select.value;
+      select.innerHTML = '<option value="" disabled selected>Select linked big goal (optional)</option>';
+      goals.forEach(goal => {
+        const option = document.createElement('option');
+        option.value = goal;
+        option.textContent = goal;
+        if (goal === prevValue) option.selected = true;
+        select.appendChild(option);
+      });
     }
 
     // Render micro‑goals list
@@ -220,20 +243,29 @@
       const list = loadGoals(MICRO_GOALS_KEY);
       const ul = document.getElementById('microGoalsList');
       ul.innerHTML = '';
+      // If no micro-goals exist, show a helpful placeholder
+      if (!list.length) {
+        ul.innerHTML = '<li style="color:#666; font-size:0.9rem;">No micro‑goals yet. Add your first micro‑goal or try: &lsquo;Write 1 page of my book.&rsquo;</li>';
+        document.getElementById('addMicroGoalBtn').disabled = false;
+        return;
+      }
       list.forEach((item, index) => {
         // Skip undefined or null items that may exist from previous versions
         if (item === undefined || item === null) return;
-        // Determine text and need fields depending on data type
+        // Determine text, need and linked goal fields depending on data type
         const text = typeof item === 'string' ? item : item.text;
         if (!text) return;
         const need = typeof item === 'object' && item.need ? item.need : '';
+        const linkedGoal = typeof item === 'object' && item.linkedGoal ? item.linkedGoal : '';
         const li = document.createElement('li');
         const checkbox = document.createElement('input');
         checkbox.type = 'checkbox';
         checkbox.dataset.index = index;
         checkbox.addEventListener('change', completeMicroGoal);
         const label = document.createElement('label');
-        label.innerHTML = text + (need ? ` <span style="font-size:0.8rem; color:#888;">[${need}]</span>` : '');
+        label.innerHTML = text +
+          (need ? ` <span style="font-size:0.8rem; color:#888;">[${need}]</span>` : '') +
+          (linkedGoal ? ` <span style="font-size:0.75rem; color:#777;">(Goal: ${linkedGoal})</span>` : '');
         li.appendChild(checkbox);
         li.appendChild(label);
         const editBtn = document.createElement('span');
@@ -281,19 +313,22 @@
       const input = document.getElementById('microGoalInput');
       const needSelect = document.getElementById('needSelect');
       const phaseSelect = document.getElementById('phaseSelect');
+      const goalSelect = document.getElementById('bigGoalSelect');
       const text = input.value.trim();
       const list = loadGoals(MICRO_GOALS_KEY);
       if (text && list.length < 3) {
         const newItem = {
           text: text,
           need: needSelect.value || '',
-          phase: phaseSelect.value || ''
+          phase: phaseSelect.value || '',
+          linkedGoal: goalSelect && goalSelect.value ? goalSelect.value : ''
         };
         list.push(newItem);
         saveGoals(MICRO_GOALS_KEY, list);
         input.value = '';
         needSelect.selectedIndex = 0;
         phaseSelect.selectedIndex = 0;
+        if (goalSelect) goalSelect.selectedIndex = 0;
         renderMicroGoals();
       }
     });
@@ -309,13 +344,15 @@
       const text = typeof item === 'string' ? item : item.text;
       const need = typeof item === 'object' && item.need ? item.need : '';
       const phase = typeof item === 'object' && item.phase ? item.phase : '';
-      let reflection = prompt('Reflection: What changed in you as a result of completing "' + text + '"? How did it meet your need?');
+      const linkedGoal = typeof item === 'object' && item.linkedGoal ? item.linkedGoal : '';
+      let reflection = prompt('Reflection:\n\nWhat changed in you as a result of completing "' + text + '"?\n\nHow did it meet your need?\n\nWhat emotions did you notice?\nDid this action align with your values?');
       if (reflection === null) reflection = '';
       const history = loadGoals(MICRO_HISTORY_KEY);
       history.unshift({
         text: text,
         need: need,
         phase: phase,
+        linkedGoal: linkedGoal,
         reflection: reflection,
         date: new Date().toISOString(),
       });
@@ -338,7 +375,10 @@
         const li = document.createElement('li');
         li.style.flexDirection = 'column';
         const title = document.createElement('span');
-        title.innerHTML = `<strong>${entry.text}</strong>` + (entry.need ? ` <span style="font-size:0.8rem; color:#888;">[${entry.need}]</span>` : '') + (entry.phase ? ` <span style="font-size:0.75rem; color:#bbb;">(${entry.phase})</span>` : '');
+        title.innerHTML = `<strong>${entry.text}</strong>` +
+          (entry.need ? ` <span style="font-size:0.8rem; color:#888;">[${entry.need}]</span>` : '') +
+          (entry.phase ? ` <span style="font-size:0.75rem; color:#bbb;">(${entry.phase})</span>` : '') +
+          (entry.linkedGoal ? ` <span style="font-size:0.75rem; color:#777;">(Goal: ${entry.linkedGoal})</span>` : '');
         const date = new Date(entry.date);
         const dateSpan = document.createElement('span');
         dateSpan.style.fontSize = '0.75rem';
@@ -365,6 +405,7 @@
     renderBigGoals();
     renderMicroGoals();
     renderHistory();
+    populateBigGoalOptions();
     // === Add/Edit/Delete Listener for Micro-Goals ===
     document.getElementById('microGoalsList').addEventListener('click', function(e) {
       if (e.target.classList.contains('remove')) {
