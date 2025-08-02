@@ -304,7 +304,6 @@
     document.getElementById('addMicroGoalBtn').addEventListener('click', function () {
       const input = document.getElementById('microGoalInput');
       const needSelect = document.getElementById('needSelect');
-      const phaseSelect = document.getElementById('phaseSelect');
       const goalSelect = document.getElementById('bigGoalSelect');
       const text = input.value.trim();
       const list = loadGoals(MICRO_GOALS_KEY);
@@ -312,14 +311,12 @@
         const newItem = {
           text: text,
           need: needSelect.value || '',
-          phase: phaseSelect.value || '',
           linkedGoal: goalSelect && goalSelect.value ? goalSelect.value : ''
         };
         list.push(newItem);
         saveGoals(MICRO_GOALS_KEY, list);
         input.value = '';
         needSelect.selectedIndex = 0;
-        phaseSelect.selectedIndex = 0;
         if (goalSelect) goalSelect.selectedIndex = 0;
         renderMicroGoals();
       }
@@ -335,7 +332,6 @@
       // Determine text and need fields depending on data type
       const text = typeof item === 'string' ? item : item.text;
       const need = typeof item === 'object' && item.need ? item.need : '';
-      const phase = typeof item === 'object' && item.phase ? item.phase : '';
       const linkedGoal = typeof item === 'object' && item.linkedGoal ? item.linkedGoal : '';
       let reflection = prompt('Reflection:\n\nWhat changed in you as a result of completing "' + text + '"?\n\nHow did it meet your need?\n\nWhat emotions did you notice?\nDid this action align with your values?');
       if (reflection === null) reflection = '';
@@ -343,7 +339,6 @@
       history.unshift({
         text: text,
         need: need,
-        phase: phase,
         linkedGoal: linkedGoal,
         reflection: reflection,
         date: new Date().toISOString(),
@@ -369,7 +364,6 @@
         const title = document.createElement('span');
         title.innerHTML = `<strong>${entry.text}</strong>` +
           (entry.need ? ` <span style="font-size:0.8rem; color:#888;">[${entry.need}]</span>` : '') +
-          (entry.phase ? ` <span style="font-size:0.75rem; color:#bbb;">(${entry.phase})</span>` : '') +
           (entry.linkedGoal ? ` <span style="font-size:0.75rem; color:#777;">(Goal: ${entry.linkedGoal})</span>` : '');
         const date = new Date(entry.date);
         const dateSpan = document.createElement('span');
